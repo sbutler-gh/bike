@@ -78,11 +78,15 @@
     // </div>
     {/each} -->
 
-
+<section>
 <label>When thinking about transportation, do you have any chidlren, dependents, or other people (e.g. friends, family, partners) that you routinely take places?</label>
+<div class="checkbox_section">
 {#each riders_options as rider}
-<div class="checkbox"><input type="checkbox" name="riders" bind:group={riders} value={rider.value}><label>{rider.label}</label></div>
+<div class="checkbox" onclick="this.querySelector('input[type=checkbox]').click()"><input type="checkbox" name="riders" bind:group={riders} value={rider.value} style="pointer-events:none"><label>{rider.label}</label></div>
+
+<!-- <div class="checkbox" on:click={function() { if (!this.querySelector('input[type=checkbox]').checked) { this.querySelector('input[type=checkbox]').classList.add = "selected"} else { this.querySelector('input[type=checkbox]').classList.remove = "selected" } this.querySelector('input[type=checkbox]').click(); } }><input type="checkbox" name="riders" bind:group={riders} value={rider.value} style="pointer-events:none"><label>{rider.label}</label></div> -->
 {/each}
+</div>
 
 <!-- <label>Do you have any impairments or conditions that affect your transportation options?</label>
 {#each riders_options as rider}
@@ -91,13 +95,14 @@
 
 <br>
 <label>What are your routine trips and errands?</label>
+<div class="checkbox_section">
 {#each errands_options as errand}
 {#if errand.value == "kids" && !riders.includes('kids')}
 {:else}
-<div class="checkbox"><input type="checkbox" name="errands" bind:group={errands} value={errand.value}><label>{errand.label}</label></div>
+<div class="checkbox" onclick="this.querySelector('input[type=checkbox]').click()"><input type="checkbox" name="errands" bind:group={errands} value={errand.value} style="pointer-events:none"><label>{errand.label}</label></div>
 {/if}
 {/each}
-
+</div>
 
 <!-- <label>How would you be storing your bike?</label>
 {#each riders_options as rider}
@@ -110,6 +115,8 @@
 {#each riders_options as rider}
 <div class="checkbox"><input type="checkbox" name="riders" bind:group={riders} value={rider.value}><label>{rider.label}</label></div>
 {/each} -->
+
+</section>
 
 <footer>
     <hr>
@@ -145,11 +152,40 @@
         max-width: 100%;
     }
 
+    section {
+        margin: 8px;
+    overflow-y: scroll;
+    margin-bottom: 40vh;
+    }
+
     footer {
         position: fixed;
     bottom: 0;
     min-height: 40%;
     left: 0;
     margin: 8px;
+    background: white;
+    width: 100%;
+    }
+
+    .checkbox {
+        width: 48%;
+        aspect-ratio: 1/1;
+        position: relative; /* If you want text inside of it */
+        /* display: inline; */
+        border: solid 1px black;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .checkbox > input[type="checkbox"]  {
+    /* opacity: 0; */
+    }
+
+    .checkbox_section {
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
     }
 </style>
